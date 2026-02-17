@@ -3,7 +3,6 @@ package main
 import (
 	"ecommerce/global_router"
 	"ecommerce/handlers"
-	"ecommerce/product"
 	"fmt"
 	"net/http"
 )
@@ -29,35 +28,6 @@ func main() {
 	}
 }
 
-func init() {
-	prod1 := product.Product{
-		ID:          1,
-		Title:       "Orane",
-		Description: "Best orange ever",
-		Price:       20,
-		ImageUrl:    "https://www.quanta.org/orange/",
-	}
-
-	prod2 := product.Product{
-		ID:          2,
-		Title:       "Apple",
-		Description: "Best apple ever",
-		Price:       20,
-		ImageUrl:    "https://www.quanta.org/orange/",
-	}
-
-	prod3 := product.Product{
-		ID:          3,
-		Title:       "Banana",
-		Description: "Best banana ever",
-		Price:       20,
-		ImageUrl:    "https://www.quanta.org/orange/",
-	}
-
-	product.ProductList = append(product.ProductList, prod1)
-	product.ProductList = append(product.ProductList, prod2)
-	product.ProductList = append(product.ProductList, prod3)
-}
 
 
 

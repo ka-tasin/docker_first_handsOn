@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"ecommerce/product"
+	"ecommerce/database"
 	"ecommerce/utils"
 	"encoding/json"
 	"fmt"
@@ -14,7 +14,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var newProduct product.Product
+	var newProduct database.Product
 
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newProduct)
@@ -25,8 +25,8 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newProduct.ID = len(product.ProductList) + 1
-	product.ProductList = append(product.ProductList, newProduct)
+	newProduct.ID = len(database.ProductList) + 1
+	database.ProductList = append(database.ProductList, newProduct)
 
 	utils.SendData(w, newProduct, 201)
 
