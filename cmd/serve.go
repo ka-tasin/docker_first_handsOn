@@ -5,7 +5,6 @@ import (
 	"ecommerce/handlers"
 	"ecommerce/middleware"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -16,14 +15,9 @@ func Serve() {
 		fmt.Fprintln(w, "Go server is running")
 	}))
 
-	middle := func(w http.ResponseWriter, r *http.Request) {
-		log.Println("I am route, I will print in middle")
-	}
-
-	mux.Handle("GET /route", middleware.Logger(http.HandlerFunc(middle)))
-
-	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProduct))
-	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
+	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
+	mux.Handle("POST /products", middleware.Logger(http.HandlerFunc(handlers.CreateProduct)))
+	mux.Handle("GET /products/{productId}", middleware.Logger(http.HandlerFunc(handlers.GetProductById)))
 
 	fmt.Println("Server is running on port: 8080")
 
