@@ -23,7 +23,7 @@ func GetProductById(w http.ResponseWriter, r *http.Request) {
 	for _, product := range database.ProductList {
 		if product.ID == pId {
 			utils.SendData(w, product, 200)
-			return
+			return 
 		}
 	}
 
