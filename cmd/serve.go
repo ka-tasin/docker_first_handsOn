@@ -16,7 +16,7 @@ func Serve() {
 	}))
 
 
-	mux.Handle("GET /route", middleware.Logger(http.HandlerFunc(handlers.Test)))
+	mux.Handle("GET /route", middleware.Logger(middleware.Hudai(http.HandlerFunc(handlers.Test))))
 
 	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
 	mux.Handle("POST /products",http.HandlerFunc(handlers.CreateProduct))
