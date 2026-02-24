@@ -5,12 +5,12 @@ import "net/http"
 type Middleware func(http.HandlerFunc) http.HandlerFunc
 
 type Manager struct {
-	globalMiddlwares []Middleware
+	globalMiddlewares []Middleware
 }
 
 func NewManager() *Manager {
 	return &Manager{
-		globalMiddlwares: make([]Middleware, 0),
+		globalMiddlewares: make([]Middleware, 0),
 	}
 }
 
@@ -23,7 +23,6 @@ func (mngr *Manager) With(middlewares ...Middleware) Middleware {
 			n = middleware(n)
 		}
 
-		return n;
- 	}
-	
+		return n
+	}
 }
