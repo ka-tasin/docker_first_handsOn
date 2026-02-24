@@ -9,18 +9,18 @@ import (
 )
 
 func Serve() {
+	manager := middleware.NewManager()
 	mux := http.NewServeMux()
+
+	mux.Handle("GET /route", manager.With(middleware.Hudai, middleware.Logger)(http.HandlerFunc(handlers.Test)))
+
+	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
+	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
+	mux.Handle("GET /products/{productId}", http.HandlerFunc(handlers.GetProductById))
 
 	mux.Handle("GET /", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, "Go server is running")
 	}))
-
-
-	mux.Handle("GET /route", middleware.Logger(middleware.Hudai(http.HandlerFunc(handlers.Test))))
-
-	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
-	mux.Handle("POST /products",http.HandlerFunc(handlers.CreateProduct))
-	mux.Handle("GET /products/{productId}", http.HandlerFunc(handlers.GetProductById))
 
 	fmt.Println("Server is running on port: 8080")
 

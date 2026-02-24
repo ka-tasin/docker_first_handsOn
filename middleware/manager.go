@@ -14,13 +14,14 @@ func NewManager() *Manager {
 	}
 }
 
-func (mngr *Manager) With(middlewares ...Middleware) Middleware {
+func (mngr *Manager) With(middlwares ...Middleware) Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		n := next
 
-		for i := len(middlewares) - 1; i >= 0; i-- {
-			middleware := middlewares[i]
-			n = middleware(n)
+		// [hudai(logger(next)), ]
+		for i := len(middlwares) - 1; i >= 0; i-- {
+			middlware := middlwares[i]
+			n = middlware(n)
 		}
 
 		return n
