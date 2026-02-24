@@ -8,7 +8,7 @@ type Manager struct {
 	globalMiddlwares []Middleware
 }
 
-func NewMiddleware() *Manager {
+func NewManager() *Manager {
 	return &Manager{
 		globalMiddlwares: make([]Middleware, 0),
 	}
