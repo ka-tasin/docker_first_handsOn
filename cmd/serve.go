@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"ecommerce/global_router"
-	"ecommerce/handlers"
 	"ecommerce/middleware"
 	"fmt"
 	"net/http"
@@ -15,20 +14,7 @@ func Serve() {
 
 	mux := http.NewServeMux()
 
-	mux.Handle("GET /route", 
-		manager.With(
-			http.HandlerFunc(handlers.Test),
-			middleware.Arekta,
-		),
-	)
-
-	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
-	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
-	mux.Handle("GET /products/{productId}", http.HandlerFunc(handlers.GetProductById))
-
-	mux.Handle("GET /", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Go server is running")
-	}))
+	initRoutes(mux, manager)
 
 	fmt.Println("Server is running on port: 8080")
 
