@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Hudai(next http.HandlerFunc) http.HandlerFunc {
+func Hudai(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("I am hudai middleware")
 		next.ServeHTTP(w, r)

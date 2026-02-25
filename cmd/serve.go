@@ -12,7 +12,7 @@ func Serve() {
 	manager := middleware.NewManager()
 	mux := http.NewServeMux()
 
-	mux.Handle("GET /route", manager.With(middleware.Hudai, middleware.Logger)(http.HandlerFunc(handlers.Test)))
+	mux.Handle("GET /route", manager.With(http.HandlerFunc(handlers.Test), middleware.Hudai, middleware.Logger))
 
 	mux.Handle("GET /products", middleware.Logger(http.HandlerFunc(handlers.GetProduct)))
 	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))

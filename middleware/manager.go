@@ -1,8 +1,10 @@
 package middleware
 
-import "net/http"
+import (
+	"net/http"
+)
 
-type Middleware func(http.HandlerFunc) http.HandlerFunc
+type Middleware func(http.Handler) http.Handler
 
 type Manager struct {
 	globalMiddlewares []Middleware
@@ -14,16 +16,13 @@ func NewManager() *Manager {
 	}
 }
 
-func (mngr *Manager) With(middlwares ...Middleware) Middleware {
-	return func(next http.HandlerFunc) http.HandlerFunc {
-		n := next
+func (mngr *Manager) With(next http.Handler, middlewares ...Middleware) http.Handler {
+	n := next
 
-		// [hudai(logger(next)), ]
-		for i := len(middlwares) - 1; i >= 0; i-- {
-			middlware := middlwares[i]
-			n = middlware(n)
-		}
-
-		return n
+	for _, middleware := range middlewares {
+		n = middleware(n)
 	}
+
+	return n
+
 }
